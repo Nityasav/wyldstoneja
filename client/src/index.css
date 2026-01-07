@@ -32,87 +32,55 @@
   --radius-lg: var(--radius);
 }
 
-/* EARTH LUXE THEME */
 :root {
-  /* Soft Cream / Off-White Background */
   --background: 40 20% 97%; 
-  /* Dark Charcoal Foreground for crisp text */
-  --foreground: 150 5% 15%;
-  
-  /* Primary: Deep Forest Green - The core brand color */
-  --primary: 150 30% 25%;
+  --foreground: 150 5% 10%;
+  --primary: 150 30% 20%;
   --primary-foreground: 40 20% 97%;
-  
-  /* Secondary: Soft Sage - For subtle elements */
   --secondary: 150 15% 92%;
-  --secondary-foreground: 150 30% 25%;
-  
-  /* Accent: Muted Gold - For the "Moissanite/Luxury" feel */
-  --accent: 45 40% 60%;
-  --accent-foreground: 150 5% 15%;
-  
-  /* Muted text */
+  --secondary-foreground: 150 30% 20%;
+  --accent: 45 45% 55%;
+  --accent-foreground: 150 5% 10%;
   --muted: 150 10% 90%;
   --muted-foreground: 150 5% 40%;
-  
-  /* Cards and Popovers */
   --card: 0 0% 100%;
-  --card-foreground: 150 5% 15%;
+  --card-foreground: 150 5% 10%;
   --popover: 0 0% 100%;
-  --popover-foreground: 150 5% 15%;
-  
-  /* Borders */
-  --border: 150 10% 90%;
-  --input: 150 10% 90%;
-  --ring: 150 30% 25%;
-  
-  --radius: 0.5rem;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
-}
-
-.dark {
-  /* Inverting for Dark Mode - Deep Luxury Night */
-  --background: 150 30% 10%;
-  --foreground: 40 20% 95%;
-  
-  --primary: 150 20% 80%; /* Lighter green for visibility */
-  --primary-foreground: 150 30% 15%;
-  
-  --secondary: 150 20% 15%;
-  --secondary-foreground: 40 20% 95%;
-  
-  --accent: 45 40% 50%;
-  --accent-foreground: 40 20% 95%;
-  
-  --muted: 150 20% 15%;
-  --muted-foreground: 150 10% 65%;
-  
-  --card: 150 30% 12%;
-  --card-foreground: 40 20% 95%;
-  --popover: 150 30% 12%;
-  --popover-foreground: 40 20% 95%;
-  
-  --border: 150 20% 20%;
-  --input: 150 20% 20%;
-  --ring: 150 20% 80%;
+  --popover-foreground: 150 5% 10%;
+  --border: 150 10% 88%;
+  --input: 150 10% 88%;
+  --ring: 150 30% 20%;
+  --radius: 0.75rem;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
   body {
     @apply font-sans antialiased bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    cursor: default;
   }
 }
 
-/* Custom utility for text selection color to match brand */
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+  .glass {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+  }
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .mask-radial {
+    mask-image: radial-gradient(circle, black 40%, transparent 100%);
+  }
+}
+
 ::selection {
-  background-color: hsl(var(--accent) / 0.3);
-  color: inherit;
+  background-color: hsl(var(--accent));
+  color: white;
 }
