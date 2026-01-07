@@ -138,7 +138,7 @@ const ProductSection = () => {
 
               <div className="z-10 relative opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
                 <Button className="w-full bg-primary text-white py-8 rounded-none uppercase tracking-[0.3em] font-bold text-xs">
-                  Add to Cart
+                  Buy Now
                 </Button>
               </div>
             </motion.div>
