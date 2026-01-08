@@ -16,7 +16,7 @@ export default function Team() {
         className="max-w-6xl mx-auto"
       >
         <span className="text-accent text-[10px] font-black uppercase tracking-[0.5em] mb-4 block">The Humans</span>
-        <h1 className="text-6xl md:text-8xl font-serif tracking-tighter mb-12">Meet the<br/><span className="italic opacity-30">Guardians.</span></h1>
+        <h1 className="text-6xl md:text-8xl font-serif tracking-tighter mb-12">Meet the<br/><span className="italic opacity-30">Wyldstone Team.</span></h1>
         
         {/* Large Team Photo Placeholder */}
         <motion.div 
