@@ -15,10 +15,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const products = [
-  { id: "rhino", name: "The Rhino Guardian", animal: "Rhino", cause: "Anti-Poaching", price: 15, image: rhinoImage },
-  { id: "elephant", name: "The Gentle Giant", animal: "Elephant", cause: "Habitat Protection", price: 15, image: elephantImage },
-  { id: "polar-bear", name: "The Arctic Spirit", animal: "Polar Bear", cause: "Arctic Preservation", price: 15, image: polarBearImage },
-  { id: "panda", name: "The Bamboo Walker", animal: "Panda", cause: "Reforestation", price: 15, image: pandaImage }
+  { id: "rhino", name: "The Rhino Guardian", animal: "Rhino", cause: "Anti-Poaching", price: 10, image: rhinoImage },
+  { id: "elephant", name: "The Gentle Giant", animal: "Elephant", cause: "Habitat Protection", price: 10, image: elephantImage },
+  { id: "polar-bear", name: "The Arctic Spirit", animal: "Polar Bear", cause: "Arctic Preservation", price: 10, image: polarBearImage },
+  { id: "panda", name: "The Bamboo Walker", animal: "Panda", cause: "Reforestation", price: 10, image: pandaImage }
 ];
 
 const Navbar = () => {
@@ -84,7 +84,7 @@ const Hero = () => {
           </h1>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="flex flex-col items-center">
             <p className="max-w-xl text-white/70 text-lg mb-12 font-light tracking-wide leading-relaxed">
-              Ethically sourced Moissanite meet wildlife conservation. <br/>$15 that changes the world.
+              Ethically sourced beaded bracelets with silver charms. <br/>$10 that changes the world.
             </p>
             <Button size="lg" className="bg-white text-black hover:bg-accent hover:text-white px-12 py-8 rounded-full text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl">
               Explore Collection
@@ -107,7 +107,7 @@ const ProductSection = () => {
             <h2 className="text-6xl md:text-8xl font-serif tracking-tighter leading-none">Choose Your<br/><span className="italic opacity-30">Spirit Animal</span></h2>
           </motion.div>
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="max-w-md text-muted-foreground text-xl font-light leading-relaxed">
-            Every charm is hand-carved silver, paired with a brilliant moissanite. $15 total. Direct donations.
+            Every charm is hand-carved silver, paired with high-quality gem beads. $10 total. Direct donations.
           </motion.p>
         </div>
 
