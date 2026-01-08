@@ -76,9 +76,6 @@ const Hero = () => {
 
       <div className="container relative z-10 px-6 text-center">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}>
-          <Badge className="mb-8 bg-white/10 backdrop-blur-md text-white border-white/20 px-6 py-2 text-[10px] tracking-[0.4em] uppercase font-bold">
-            Nature's Fine Jewelry
-          </Badge>
           <h1 className="text-[clamp(3rem,8vw,7rem)] font-serif font-black text-white leading-[0.9] mb-8 tracking-tighter text-glow">
             WYLDSTONE<br/><span className="italic font-light opacity-80">Bracelets.</span>
           </h1>
