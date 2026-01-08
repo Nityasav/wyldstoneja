@@ -3,12 +3,12 @@ import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "fra
 import { ArrowRight, Heart, Leaf, Globe, Shield, Menu, X, ShoppingBag, ArrowDown } from "lucide-react";
 
 // Assets
-import heroImage from "@assets/generated_images/hero_image_of_wyldstone_bracelet_in_nature.png";
+import heroImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.png";
 import rhinoImage from "@assets/generated_images/rhino_charm_bracelet_product_shot.png";
 import elephantImage from "@assets/generated_images/elephant_charm_bracelet_product_shot.png";
 import polarBearImage from "@assets/generated_images/polar_bear_charm_bracelet_product_shot.png";
 import pandaImage from "@assets/generated_images/panda_charm_bracelet_product_shot.png";
-import abstractBg from "@assets/generated_images/abstract_luxury_nature_texture_background.png";
+import abstractBg from "@assets/generated_images/abstract_nature_textures_for_background.png";
 
 // UI Components
 import { Button } from "@/components/ui/button";
