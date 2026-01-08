@@ -93,11 +93,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-        <div className="w-[1px] h-24 bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
-        <span className="text-[10px] uppercase tracking-[0.5em] text-white/50 font-bold">Scroll</span>
-      </motion.div>
-    </section>
+      </section>
   );
 };
 
