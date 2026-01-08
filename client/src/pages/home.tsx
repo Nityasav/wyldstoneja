@@ -15,10 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const products = [
-  { id: "rhino", name: "The Rhino Guardian", animal: "Rhino", cause: "Anti-Poaching", price: 10, image: rhinoImage },
-  { id: "elephant", name: "The Gentle Giant", animal: "Elephant", cause: "Habitat Protection", price: 10, image: elephantImage },
-  { id: "polar-bear", name: "The Arctic Spirit", animal: "Polar Bear", cause: "Arctic Preservation", price: 10, image: polarBearImage },
-  { id: "panda", name: "The Bamboo Walker", animal: "Panda", cause: "Reforestation", price: 10, image: pandaImage }
+  { id: "rhino", name: "The Rhino Guardian", animal: "Rhino", cause: "Anti-Poaching", price: 10, image: rhinoImage }
 ];
 
 const Navbar = () => {
