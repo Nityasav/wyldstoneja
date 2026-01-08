@@ -40,9 +40,6 @@ const Hero = () => {
             <p className="max-w-xl text-white/70 text-lg mb-12 font-light tracking-wide leading-relaxed">
               Ethically sourced beaded bracelets with silver charms. <br/>$10 that changes the world.
             </p>
-            <Button size="lg" className="bg-white text-black hover:bg-accent hover:text-white px-12 py-8 rounded-full text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl">
-              Explore Collection
-            </Button>
           </motion.div>
         </motion.div>
       </div>
