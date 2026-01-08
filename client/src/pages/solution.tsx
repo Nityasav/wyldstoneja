@@ -53,8 +53,8 @@ export default function Solution() {
           <span className="text-accent text-[10px] font-black uppercase tracking-[0.5em] mb-4 block">Our Approach</span>
           <h1 className="text-6xl md:text-8xl font-serif tracking-tighter mb-12">Jewelry with<br/><span className="italic opacity-30">Vigilance.</span></h1>
           <div className="grid md:grid-cols-2 gap-12 text-xl font-light leading-relaxed text-muted-foreground">
-            <p>Wyldstone bridges the gap between luxury and conservation. By creating beautiful, accessible Moissanite bracelets, we turn everyday style into a powerful tool for global change.</p>
-            <p>Our direct-to-cause model ensures that for every $15 bracelet, a significant portion goes directly to specialized charities focused on the animal you choose.</p>
+            <p>Wyldstone bridges the gap between luxury and conservation. By creating beautiful, accessible Moissanite bracelets, we turn everyday style into a powerful tool for global change. Each bracelet features gem-style beads in popular colours like white marble, light blue, green, and dark blue.</p>
+            <p>Our direct-to-cause model ensures that for every $15 bracelet, we donate 10% of every sale to protect wildlife and adopt vulnerable zoo animals. We offer handmade beaded charm bracelets designed to raise awareness and funds for wildlife conservation.</p>
           </div>
         </motion.div>
       </div>
