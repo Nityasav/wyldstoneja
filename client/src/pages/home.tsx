@@ -166,7 +166,7 @@ const ImpactStatement = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-[clamp(2.5rem,8vw,6rem)] font-serif leading-[1.1] text-center tracking-tighter"
           >
-            "A small piece of <span className="italic text-accent">luxury</span> that acts as a giant shield for the <span className="opacity-40">wild.</span>"
+            "WyldStone is committed to protecting <span className="italic text-accent">endangered species</span> and <span className="opacity-40">vulnerable zoo animals.</span>"
           </motion.h2>
         </div>
       </div>
