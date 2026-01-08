@@ -36,16 +36,21 @@ const Navbar = () => {
           WYLDSTONE
         </motion.div>
         <div className="hidden md:flex items-center space-x-12">
-          {["Collection", "Impact", "Journal"].map((item, i) => (
+          {[
+            { label: "Problem", path: "/problem" },
+            { label: "Solution", path: "/solution" },
+            { label: "Impact", path: "/impact" },
+            { label: "Team", path: "/team" }
+          ].map((item, i) => (
             <motion.a 
-              key={item} 
-              href={`#${item.toLowerCase()}`}
+              key={item.label} 
+              href={item.path}
               initial={{ opacity: 0, y: -10 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: i * 0.1 }}
               className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground/60 hover:text-primary transition-colors"
             >
-              {item}
+              {item.label}
             </motion.a>
           ))}
           <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:text-white transition-all">
