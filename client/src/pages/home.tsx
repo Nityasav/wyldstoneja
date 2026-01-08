@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowRight, Heart, Leaf, Globe, Shield, Menu, X, ShoppingBag, ArrowDown } from "lucide-react";
+import { Navbar } from "@/components/Navbar";
 
 // Assets
 import heroImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.png";
@@ -17,47 +18,6 @@ import { Badge } from "@/components/ui/badge";
 const products = [
   { id: "rhino", name: "The Rhino Guardian", animal: "Rhino", cause: "Anti-Poaching", price: 10, image: rhinoImage }
 ];
-
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled ? "py-4" : "py-8"}`}>
-      <div className={`mx-auto max-w-7xl px-6 flex justify-between items-center transition-all duration-500 ${scrolled ? "glass rounded-full py-3 px-8 mx-6" : ""}`}>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xl font-serif font-black tracking-tighter text-primary">
-          WYLDSTONE
-        </motion.div>
-        <div className="hidden md:flex items-center space-x-12">
-          {[
-            { label: "Problem", path: "/problem" },
-            { label: "Solution", path: "/solution" },
-            { label: "Impact", path: "/impact" },
-            { label: "Team", path: "/team" }
-          ].map((item, i) => (
-            <motion.a 
-              key={item.label} 
-              href={item.path}
-              initial={{ opacity: 0, y: -10 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: i * 0.1 }}
-              className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground/60 hover:text-primary transition-colors"
-            >
-              {item.label}
-            </motion.a>
-          ))}
-          <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:text-white transition-all">
-            <ShoppingBag className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-    </nav>
-  );
-};
 
 const Hero = () => {
   const { scrollY } = useScroll();
