@@ -146,7 +146,20 @@ export default function Home() {
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-black">
             © 2026 Crafted with purpose.
           </p>
-          <div className="flex gap-12">
+          <div className="flex gap-12 flex-wrap justify-center">
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.localStorage.removeItem("wyldstone_onboarding_complete");
+                  window.location.href = "/";
+                }
+              }}
+              className="text-[10px] uppercase tracking-widest font-bold hover:text-accent transition-colors"
+              aria-label="Find your spirit animal again"
+            >
+              Find yours again
+            </button>
             {["Instagram", "Journal", "Impact"].map(l => (
               <a key={l} href="#" className="text-[10px] uppercase tracking-widest font-bold hover:text-accent transition-colors">{l}</a>
             ))}

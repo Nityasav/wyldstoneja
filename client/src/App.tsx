@@ -1,4 +1,5 @@
-import { Switch, Route } from "wouter";
+import { useState } from "react";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -9,6 +10,9 @@ import Problem from "@/pages/problem";
 import Solution from "@/pages/solution";
 import Impact from "@/pages/impact";
 import Team from "@/pages/team";
+import Onboarding from "@/pages/onboarding";
+
+const ONBOARDING_STORAGE_KEY = "wyldstone_onboarding_complete";
 
 function Router() {
   return (
@@ -24,11 +28,30 @@ function Router() {
 }
 
 function App() {
+  const [location] = useLocation();
+  const [onboardingComplete, setOnboardingComplete] = useState(() =>
+    typeof window !== "undefined" &&
+    !!window.localStorage.getItem(ONBOARDING_STORAGE_KEY)
+  );
+
+  const showOnboarding = location === "/" && !onboardingComplete;
+
+  const handleOnboardingComplete = () => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
+    }
+    setOnboardingComplete(true);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        {showOnboarding ? (
+          <Onboarding onComplete={handleOnboardingComplete} />
+        ) : (
+          <Router />
+        )}
       </TooltipProvider>
     </QueryClientProvider>
   );
