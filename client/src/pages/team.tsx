@@ -23,7 +23,10 @@ export default function Team() {
           className="max-w-6xl mx-auto"
         >
           <span className="text-accent text-[10px] font-black uppercase tracking-[0.5em] mb-4 block">The Humans</span>
-          <h1 className="text-6xl md:text-8xl font-serif tracking-tighter mb-12">Meet the<br/><span className="italic opacity-30">Wyldstone Team.</span></h1>
+          <h1 className="text-6xl md:text-8xl font-serif tracking-tighter mb-6">Meet the<br/><span className="italic opacity-30">Wyldstone Team.</span></h1>
+          <p className="w-full text-center text-xl md:text-2xl text-muted-foreground font-light leading-relaxed mb-12">
+            We are a  group of high schoolers from the Durham region united by our passion for making a difference. Our handmade bracelets symbolize teamwork and dedication, with proceeds supporting the animals at the Toronto Zoo. Together, we&apos;re crafting jewelry with a purpose.
+          </p>
           
           {/* Wyldstone Collective Photo */}
           <motion.div 
