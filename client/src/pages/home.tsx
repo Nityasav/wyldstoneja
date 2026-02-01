@@ -4,7 +4,7 @@ import { ArrowRight, Heart, Leaf, Globe, Shield, Menu, X, ShoppingBag, ArrowDown
 import { Navbar } from "@/components/Navbar";
 
 // Assets
-import heroImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.png";
+import heroImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
 import rhinoImage from "@assets/generated_images/rhino_charm_bracelet_product_shot.png";
 import elephantImage from "@assets/generated_images/elephant_charm_bracelet_product_shot.png";
 import polarBearImage from "@assets/generated_images/polar_bear_charm_bracelet_product_shot.png";
@@ -38,7 +38,7 @@ const Hero = () => {
           </h1>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="flex flex-col items-center">
             <p className="max-w-xl text-white/70 text-lg mb-12 font-light tracking-wide leading-relaxed">
-              Ethically sourced beaded bracelets with silver charms. <br/>$10 that changes the world.
+              Beaded bracelets with silver charms. <br/>$10 that changes the world.
             </p>
           </motion.div>
         </motion.div>

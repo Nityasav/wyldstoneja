@@ -2,7 +2,7 @@
  * Spirit animals and quiz questions for the onboarding journey.
  * Swap placeholder image for real Tiger / Turtle / Red Panda assets when available.
  */
-import placeholderImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.png";
+import placeholderImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
 
 export type SpiritAnimalId = "tiger" | "turtle" | "red-panda";
 
