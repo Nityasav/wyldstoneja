@@ -5,19 +5,15 @@ import { Navbar } from "@/components/Navbar";
 
 // Assets
 import heroImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
-import rhinoImage from "@assets/generated_images/rhino_charm_bracelet_product_shot.png";
-import elephantImage from "@assets/generated_images/elephant_charm_bracelet_product_shot.png";
-import polarBearImage from "@assets/generated_images/polar_bear_charm_bracelet_product_shot.png";
-import pandaImage from "@assets/generated_images/panda_charm_bracelet_product_shot.png";
+import amurImage from "@assets/generated_images/WhatsApp Image 2026-01-15 at 23.24.02 (1).jpeg";
+import aureliusImage from "@assets/generated_images/WhatsApp Image 2026-01-15 at 23.24.02.jpeg";
+import taliseImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
 import abstractBg from "@assets/generated_images/abstract_nature_textures_for_background.png";
+import { Link } from "wouter";
 
 // UI Components
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-
-const products = [
-  { id: "rhino", name: "The Rhino Guardian", animal: "Rhino", cause: "Anti-Poaching", price: 10, image: rhinoImage }
-];
+import { products } from "@/data/products";
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -62,38 +58,51 @@ const ProductSection = () => {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/50 border border-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((p, i) => (
-            <motion.div 
-              key={p.id} 
-              className="group relative aspect-[4/5] bg-background overflow-hidden p-12 flex flex-col justify-between"
-              whileHover="hover"
+            <motion.article
+              key={p.id}
+              className="group relative aspect-[4/5] rounded-2xl overflow-hidden border border-border shadow-sm"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              whileHover={{ y: -4 }}
             >
-              <div className="z-10 relative">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-4xl font-serif mb-2 group-hover:text-accent transition-colors duration-500">{p.name}</h3>
-                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-black">Supports {p.cause}</p>
+              {/* Image: full bleed, consistent crop */}
+              <img
+                src={p.image}
+                alt={p.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Gradient overlay for text readability */}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+                aria-hidden
+              />
+              {/* Content overlay: bottom */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+                <div className="relative z-10">
+                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-white mb-3 group-hover:text-accent transition-colors duration-300 leading-tight tracking-tight w-full">
+                    {p.name}
+                  </h3>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-xl font-light text-white">${p.price}</span>
+                    <span className="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                      <Link href={`/${p.slug}`}>
+                        <Button
+                          size="sm"
+                          className="rounded-full bg-white text-primary hover:bg-accent hover:text-primary font-bold text-xs uppercase tracking-wider px-5 py-2 min-w-fit"
+                          aria-label={`Learn more about ${p.name}`}
+                        >
+                          Learn More
+                        </Button>
+                      </Link>
+                    </span>
                   </div>
-                  <span className="text-2xl font-light">${p.price}</span>
                 </div>
               </div>
-
-              <motion.div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-all duration-700 pointer-events-none">
-                <motion.img 
-                  src={p.image} 
-                  alt={p.name} 
-                  className="w-4/5 h-4/5 object-contain"
-                  variants={ { hover: { scale: 1.1, rotate: 5 } } }
-                />
-              </motion.div>
-
-              <div className="z-10 relative opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                <Button className="w-full bg-primary text-white py-8 rounded-none uppercase tracking-[0.3em] font-bold text-xs">
-                  Buy Now
-                </Button>
-              </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>
