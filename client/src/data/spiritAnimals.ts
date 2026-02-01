@@ -1,8 +1,9 @@
 /**
  * Spirit animals and quiz questions for the onboarding journey.
- * Swap placeholder image for real Tiger / Turtle / Red Panda assets when available.
  */
-import placeholderImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
+import amurResultImage from "@assets/generated_images/WhatsApp Image 2026-01-15 at 23.24.02 (6).jpeg";
+import taliseResultImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
+import aureliusResultImage from "@assets/generated_images/WhatsApp Image 2026-01-15 at 23.24.02 (1).jpeg";
 
 export type SpiritAnimalId = "tiger" | "turtle" | "red-panda";
 
@@ -18,30 +19,30 @@ export interface SpiritAnimal {
 export const SPIRIT_ANIMALS: SpiritAnimal[] = [
   {
     id: "tiger",
-    name: "The Tiger",
+    name: "Amur",
     tagline: "Strength and boldness",
     cause: "Anti-Poaching",
     description:
       "Your spirit animal is the Tiger. You lead with courage and conviction. Your bracelet supports anti-poaching efforts and the protection of big cats in the wild.",
-    image: placeholderImage,
+    image: amurResultImage,
   },
   {
     id: "turtle",
-    name: "The Turtle",
+    name: "Talise",
     tagline: "Patience and longevity",
     cause: "Ocean & Habitat",
     description:
       "Your spirit animal is the Turtle. You value steadiness and the long view. Your bracelet supports ocean conservation and the protection of marine habitats.",
-    image: placeholderImage,
+    image: taliseResultImage,
   },
   {
     id: "red-panda",
-    name: "The Red Panda",
+    name: "Aurelias",
     tagline: "Curiosity and uniqueness",
     cause: "Endangered Species",
     description:
       "Your spirit animal is the Red Panda. You embrace curiosity and the rare. Your bracelet supports endangered species and vulnerable wildlife.",
-    image: placeholderImage,
+    image: aureliusResultImage,
   },
 ];
 

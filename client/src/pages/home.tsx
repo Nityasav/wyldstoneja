@@ -166,8 +166,12 @@ export default function Home() {
             >
               Find yours again
             </button>
-            {["Instagram", "Journal", "Impact"].map(l => (
-              <a key={l} href="#" className="text-[10px] uppercase tracking-widest font-bold hover:text-accent transition-colors">{l}</a>
+            {[
+              { label: "Instagram", href: "https://www.instagram.com/wyldstone_ja" },
+              { label: "Linktree", href: "https://linktr.ee/wyldstone" },
+              { label: "Impact", href: "https://www.wyldstone.ca/impact"},
+            ].map(({ label, href }) => (
+              <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="text-[10px] uppercase tracking-widest font-bold hover:text-accent transition-colors">{label}</a>
             ))}
           </div>
         </div>
