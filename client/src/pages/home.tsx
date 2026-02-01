@@ -5,9 +5,6 @@ import { Navbar } from "@/components/Navbar";
 
 // Assets
 import heroImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
-import amurImage from "@assets/generated_images/WhatsApp Image 2026-01-15 at 23.24.02 (1).jpeg";
-import aureliusImage from "@assets/generated_images/WhatsApp Image 2026-01-15 at 23.24.02.jpeg";
-import taliseImage from "@assets/generated_images/minimalist_beaded_bracelet_with_silver_charm_in_nature.jpeg";
 import abstractBg from "@assets/generated_images/abstract_nature_textures_for_background.png";
 import { Link } from "wouter";
 
