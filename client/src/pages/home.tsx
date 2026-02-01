@@ -51,7 +51,7 @@ const ProductSection = () => {
             <h2 className="text-6xl md:text-8xl font-serif tracking-tighter leading-none">Choose Your<br/><span className="italic opacity-30">Spirit Animal</span></h2>
           </motion.div>
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="max-w-md text-muted-foreground text-xl font-light leading-relaxed">
-            Every charm is hand-carved silver, paired with high-quality gem beads. $10 total. Direct donations.
+            Every bracelet is paired with high-quality gem beads, and hand-crafted. $10 total. Direct donations to wildlife conservation. 
           </motion.p>
         </div>
 
@@ -126,7 +126,7 @@ const ImpactStatement = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-[clamp(2.5rem,8vw,6rem)] font-serif leading-[1.1] text-center tracking-tighter"
           >
-            "WyldStone is committed to protecting <span className="italic text-accent">endangered species</span> and <span className="opacity-40">vulnerable zoo animals.</span>"
+            "Wyldstone is committed to protecting <span className="italic text-accent">endangered species</span> and <span className="opacity-40">vulnerable zoo animals.</span>"
           </motion.h2>
         </div>
       </div>

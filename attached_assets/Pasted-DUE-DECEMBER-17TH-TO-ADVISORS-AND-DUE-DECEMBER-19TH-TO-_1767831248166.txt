@@ -88,7 +88,7 @@ VALUE PROPOSITION
 
 Use Mission Statement previously created and Value Proposition section of Business Canvas.
 COMPANY MISSION 
-“WyldStone is committed to making endangered animal protection accessible by designing ethical bracelets featuring endangered species charms and donating 10% of every sale to protect wildlife and adopt vulnerable zoo animals.”
+“Wyldstone is committed to making endangered animal protection accessible by designing ethical bracelets featuring endangered species charms and donating 10% of every sale to protect wildlife and adopt vulnerable zoo animals.”
 
 Is the mission statement for?
 Wyldstone, a JA Canada Company
