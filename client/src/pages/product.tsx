@@ -205,7 +205,7 @@ export default function ProductPage() {
             </h1>
             <p className="text-3xl font-light text-muted-foreground mb-8">${product.price}</p>
             <p className="text-lg text-muted-foreground leading-relaxed mb-10">
-              Hand-carved silver charm paired with high-quality gem beads. $10 total. Direct donations to conservation.
+              Hand-carved silver charm paired with high-quality gem beads. $10 total. Direct donations to conservation. Available for purchase on Instagram: wyldstone_ja.
             </p>
             <Link href="/#collection">
               <Button
