@@ -2,6 +2,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.ts" }
+    { "source": "/api/health", "destination": "/api/health" },
+    { "source": "/api/chat", "destination": "/api/chat" },
+    { "source": "/api/(.*)", "destination": "/api/index" }
   ]
 }
