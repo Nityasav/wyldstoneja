@@ -15,7 +15,7 @@ export default function Solution() {
           <span className="text-accent text-[10px] font-black uppercase tracking-[0.5em] mb-4 block">Our Approach</span>
           <h1 className="text-6xl md:text-8xl font-serif tracking-tighter mb-12">Jewelry with<br/><span className="italic opacity-30">Vigilance.</span></h1>
           <div className="grid md:grid-cols-2 gap-12 text-xl font-light leading-relaxed text-muted-foreground">
-            <p>WWyldstone calls on you to help us with our journey to save wildlife. By creating beautiful, accessible bead bracelets, we turn everyday style into a powerful symbol for global change. </p>
+            <p>Wyldstone calls on you to help us with our journey to save wildlife. By creating beautiful, accessible bead bracelets, we turn everyday style into a powerful symbol for global change. </p>
             <p>Each bracelet features beads in popular colours like white, blue, black, red, and more. Along with an animal charm that reflects the cause. Which means for every $10 bracelet purchased, we get closer to protecting wildlife and adopting vulnerable zoo animals. We offer handmade beaded charm bracelets designed to raise awareness and funds for wildlife conservation.
             .</p>
           </div>
