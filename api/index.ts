@@ -12,5 +12,9 @@ const initialized = registerRoutes(httpServer, app);
 
 export default async function (req: Request, res: Response) {
   await initialized;
-  app(req, res, () => {});
+  return new Promise<void>((resolve) => {
+    res.on("finish", () => resolve());
+    res.on("close", () => resolve());
+    app(req, res, () => resolve());
+  });
 }
