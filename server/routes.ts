@@ -2,18 +2,15 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import OpenAI from "openai";
 import { storage } from "./storage";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const OPENAI_SYSTEM_BASE = `You are the Wyldstone chat assistant. Wyldstone sells handmade beaded bracelets with endangered animal charms and donates 10% of sales to wildlife conservation.
 
 STRICT RULES: Your entire reply must be ONE sentence. Maximum 15 words. No second sentence. No "We also..." or "Additionally" or "If you'd like..." Example good reply: "We make bracelets with animal charms and give 10% to wildlife." Never write more than one sentence.`;
 
+// Use process.cwd() only so this works in Vercel serverless (no import.meta in CJS bundle)
 const CHAT_KNOWLEDGE_CANDIDATES = [
-  path.join(__dirname, "chat-knowledge.txt"),
   path.join(process.cwd(), "server", "chat-knowledge.txt"),
 ];
 
@@ -88,9 +85,19 @@ export async function registerRoutes(
         "I couldn't generate a reply. Please try again.";
       sendJson(200, { message: content });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "OpenAI request failed";
+      let message = "OpenAI request failed";
+      try {
+        message = err instanceof Error ? err.message : String(err ?? message);
+      } catch {
+        // ignore
+      }
       sendJson(500, { error: message });
     }
+  });
+
+  // Health check for serverless (e.g. GET /api/chat or GET /api/health)
+  app.get("/api/health", (_req: Request, res: Response) => {
+    res.status(200).json({ ok: true });
   });
 
   return httpServer;
