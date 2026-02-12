@@ -8,6 +8,7 @@ import { ArrowLeft, Zap, Shield, Magnet, Clock, Sparkles, Heart } from "lucide-r
 const GRID_SIZE = 17;
 const CELL_SIZE = 22;
 const BASE_SPEED_MS = 140;
+const BRACELET_WIN_BEADS = 16;
 
 type Character = "turtle" | "tiger";
 type Direction = "up" | "down" | "left" | "right";
@@ -105,6 +106,17 @@ const nextHead = (head: Position, dir: Direction): Position => {
   }
 };
 
+const oppositeDir = (dir: Direction): Direction => {
+  switch (dir) {
+    case "up": return "down";
+    case "down": return "up";
+    case "left": return "right";
+    case "right": return "left";
+  }
+};
+
+const manhattanDist = (a: Position, b: Position) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+
 const wrap = (p: Position): Position => ({
   x: ((p.x % GRID_SIZE) + GRID_SIZE) % GRID_SIZE,
   y: ((p.y % GRID_SIZE) + GRID_SIZE) % GRID_SIZE,
@@ -143,9 +155,11 @@ export default function BraceGame() {
   const [activeEffects, setActiveEffects] = useState<ActiveEffect[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
   const [lives, setLives] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [lastCollectedBead, setLastCollectedBead] = useState(false);
+  const [collectBurstPos, setCollectBurstPos] = useState<Position | null>(null);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const highScoreKey = "wyldstone_bracegame_highscore";
   const snakeRef = useRef<Position[]>([]);
@@ -233,6 +247,7 @@ export default function BraceGame() {
     setActiveEffects([]);
     setScore(0);
     setGameOver(false);
+    setGameWon(false);
     setLives(0);
     setLastCollectedBead(false);
   }, [mode, spawnFoods]);
@@ -254,6 +269,7 @@ export default function BraceGame() {
       setActiveEffects([]);
       setScore(0);
       setGameOver(false);
+      setGameWon(false);
       setLives(0);
       setScreen("game");
     },
@@ -263,11 +279,12 @@ export default function BraceGame() {
   const goBackToMode = useCallback(() => {
     setScreen("mode");
     setGameOver(false);
+    setGameWon(false);
   }, []);
 
   // Game loop
   useEffect(() => {
-    if (screen !== "game" || !mode || gameOver) return;
+    if (screen !== "game" || !mode || gameOver || gameWon) return;
 
     const config = modeRef.current ?? mode;
     const speedMs = config.speedMs;
@@ -291,6 +308,9 @@ export default function BraceGame() {
         if (hasShield) {
           setActiveEffects((e) => e.filter((x) => x.id !== "shield"));
           activeEffectsRef.current = activeEffectsRef.current.filter((x) => x.id !== "shield");
+          const reverse = oppositeDir(dir);
+          nextDirectionRef.current = reverse;
+          setNextDirection(reverse);
           return;
         }
         if (hasExtraLife && livesRef.current > 0) {
@@ -321,6 +341,9 @@ export default function BraceGame() {
         if (hasShield) {
           setActiveEffects((e) => e.filter((x) => x.id !== "shield"));
           activeEffectsRef.current = activeEffectsRef.current.filter((x) => x.id !== "shield");
+          const reverse = oppositeDir(dir);
+          nextDirectionRef.current = reverse;
+          setNextDirection(reverse);
           return;
         }
         if (hasExtraLife && livesRef.current > 0) {
@@ -368,7 +391,9 @@ export default function BraceGame() {
         });
         ateBead = true;
         setLastCollectedBead(true);
+        setCollectBurstPos(head);
         setTimeout(() => setLastCollectedBead(false), 200);
+        setTimeout(() => setCollectBurstPos(null), 450);
       } else {
         newSnake.pop();
       }
@@ -403,17 +428,72 @@ export default function BraceGame() {
         newFoods = newFoods.concat(rain);
       }
 
+      // Magnet: pull beads within 3 cells one step toward head
+      const hasMagnet = activeEffectsRef.current.some((e) => e.id === "magnet");
+      if (hasMagnet && newSnake.length > 0) {
+        const h = newSnake[0];
+        const occupied = new Set(newSnake.map((p) => `${p.x},${p.y}`));
+        newFoods = newFoods.map((f) => {
+          if (manhattanDist(f, h) > 3 || samePos(f, h)) return f;
+          const dx = h.x - f.x;
+          const dy = h.y - f.y;
+          const stepX = dx !== 0 ? (dx > 0 ? 1 : -1) : 0;
+          const stepY = dy !== 0 ? (dy > 0 ? 1 : -1) : 0;
+          const next = { x: f.x + stepX, y: f.y + stepY };
+          if (!inBounds(next)) return f;
+          const key = `${next.x},${next.y}`;
+          if (occupied.has(key)) return f;
+          occupied.add(key);
+          return next;
+        });
+        // If magnet pulled a bead onto head, count as eaten
+        const magnetEatenIndex = newFoods.findIndex((f) => samePos(f, h));
+        if (magnetEatenIndex !== -1) {
+          newFoods.splice(magnetEatenIndex, 1);
+          const points = activeEffectsRef.current.some((e) => e.id === "double") ? 2 : 1;
+          setScore((s) => {
+            const next = s + points;
+            const stored = parseInt(
+              typeof window !== "undefined"
+                ? window.localStorage.getItem(highScoreKey) ?? "0"
+                : "0",
+              10
+            );
+            if (next > stored) {
+              window.localStorage.setItem(highScoreKey, String(next));
+              setHighScore(next);
+            }
+            return next;
+          });
+          setLastCollectedBead(true);
+          setCollectBurstPos(h);
+          setTimeout(() => setLastCollectedBead(false), 200);
+          setTimeout(() => setCollectBurstPos(null), 450);
+          while (newFoods.length < (cfg.multiBeads)) {
+            const extra = spawnFoods(newSnake.concat(newFoods), 1);
+            if (extra.length > 0) newFoods.push(extra[0]);
+            else break;
+          }
+        }
+      }
+
       setFoods(newFoods);
       foodsRef.current = newFoods;
       snakeRef.current = newSnake;
       setSnake(newSnake);
+
+      // Win: bracelet complete at 16 beads (segments)
+      if (newSnake.length >= BRACELET_WIN_BEADS) {
+        if (tickRef.current) clearInterval(tickRef.current);
+        setGameWon(true);
+      }
     };
 
     tickRef.current = setInterval(tick, effectiveSpeed);
     return () => {
       if (tickRef.current) clearInterval(tickRef.current);
     };
-  }, [screen, mode, gameOver, spawnFoods, spawnPowerUp, highScoreKey, lives]);
+  }, [screen, mode, gameOver, gameWon, spawnFoods, spawnPowerUp, highScoreKey, lives, activeEffects]);
 
   // Power-up collection
   useEffect(() => {
@@ -665,7 +745,7 @@ export default function BraceGame() {
             <div>
               <div className="flex items-baseline gap-2">
                 <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
-                  {mode?.id === "conservation" ? "Beads saved" : "Score"}
+                  Beads
                 </span>
                 <motion.span
                   key={score}
@@ -673,7 +753,7 @@ export default function BraceGame() {
                   animate={{ scale: 1 }}
                   className="text-xl font-serif font-black text-accent"
                 >
-                  {score}
+                  {snake.length}/{BRACELET_WIN_BEADS}
                 </motion.span>
               </div>
               <span className="text-xs text-muted-foreground">High: {highScore}</span>
@@ -711,13 +791,13 @@ export default function BraceGame() {
         )}
 
         <motion.div
-          className="rounded-2xl overflow-hidden border-2 border-border bg-gradient-to-br from-muted/50 to-muted/20 shadow-lg p-2"
+          className="rounded-2xl overflow-hidden border-2 border-border bg-gradient-to-br from-muted/50 to-muted/20 shadow-lg p-2 relative"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
         >
           <div
-            className="grid rounded-xl overflow-hidden bg-background/80"
+            className="grid rounded-xl overflow-hidden relative brace-game-grid-bg"
             style={{
               gridTemplateColumns: `repeat(${GRID_SIZE}, ${CELL_SIZE}px)`,
               gridTemplateRows: `repeat(${GRID_SIZE}, ${CELL_SIZE}px)`,
@@ -725,6 +805,27 @@ export default function BraceGame() {
             role="img"
             aria-label="Snake game grid"
           >
+            {/* Collect burst overlay */}
+            <AnimatePresence>
+              {collectBurstPos !== null && (
+                <motion.div
+                  key={`${collectBurstPos.x}-${collectBurstPos.y}`}
+                  initial={{ opacity: 0.9, scale: 0.3 }}
+                  animate={{ opacity: 0, scale: 1.8 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute pointer-events-none rounded-full bg-accent/60 border-2 border-white/70"
+                  style={{
+                    width: CELL_SIZE * 1.2,
+                    height: CELL_SIZE * 1.2,
+                    left: collectBurstPos.x * CELL_SIZE + (CELL_SIZE * 0.5) - (CELL_SIZE * 0.6),
+                    top: collectBurstPos.y * CELL_SIZE + (CELL_SIZE * 0.5) - (CELL_SIZE * 0.6),
+                    boxShadow: "0 0 20px 8px hsl(var(--accent) / 0.6)",
+                  }}
+                  aria-hidden
+                />
+              )}
+            </AnimatePresence>
             {Array.from({ length: GRID_SIZE * GRID_SIZE }, (_, i) => {
               const x = i % GRID_SIZE;
               const y = Math.floor(i / GRID_SIZE);
@@ -744,7 +845,7 @@ export default function BraceGame() {
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="w-3.5 h-3.5 rounded-full bg-accent shadow-md border-2 border-accent/30"
+                      className="w-[18px] h-[18px] rounded-full bg-accent border-2 border-white/50 bead-glow"
                       aria-hidden
                     />
                   )}
@@ -761,18 +862,22 @@ export default function BraceGame() {
                   {isSnake && !powerUp && (
                     <motion.div
                       layout
-                      className={`w-full h-full rounded-md ${
+                      className={`rounded-full absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bead-segment ${
+                        isHead
+                          ? "w-[20px] h-[20px] bead-head"
+                          : "w-[18px] h-[18px]"
+                      } ${
                         isHead
                           ? character === "turtle"
-                            ? "bg-emerald-600 shadow-inner"
-                            : "bg-amber-600 shadow-inner"
+                            ? "bg-emerald-500"
+                            : "bg-amber-500"
                           : character === "turtle"
-                            ? "bg-emerald-500/90"
-                            : "bg-amber-500/90"
+                            ? "bg-emerald-400/95"
+                            : "bg-amber-400/95"
                       }`}
                       aria-hidden
-                      animate={isHead ? { scale: [1, 1.05, 1] } : {}}
-                      transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 0.5 }}
+                      animate={isHead ? { scale: [1, 1.06, 1] } : {}}
+                      transition={{ duration: 0.35, repeat: Infinity, repeatDelay: 0.4 }}
                     />
                   )}
                 </div>
@@ -782,11 +887,92 @@ export default function BraceGame() {
         </motion.div>
 
         <p className="text-xs text-muted-foreground mt-5 text-center max-w-[400px]">
-          Use arrow keys to move. Collect beads—and power-ups—to grow and score. Slither for the animals!
+          Use arrow keys to move. Collect glowing beads so they follow you—get {BRACELET_WIN_BEADS} to complete your bracelet! Power-ups help. Slither for the cause!
         </p>
 
+        {/* Win modal: bracelet complete */}
         <AnimatePresence>
-          {gameOver && (
+          {gameWon && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="win-title"
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", damping: 20 }}
+                className="bg-background border-2 border-accent/50 rounded-2xl p-8 mx-4 text-center max-w-[550px] shadow-2xl"
+              >
+                <motion.p
+                  id="win-title"
+                  className="text-3xl font-serif font-black mb-2 text-accent"
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", delay: 0.1 }}
+                >
+                  You made your bracelet!
+                </motion.p>
+                <motion.p
+                  className="text-muted-foreground mb-4"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  Support{" "}
+                  <a
+                    href="https://wyldstone.ca"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent font-bold underline underline-offset-2 hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                    aria-label="Support wyldstone.ca (opens in new tab)"
+                  >
+                    wyldstone.ca
+                  </a>{" "}
+                  for this to make a change.
+                </motion.p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button
+                    onClick={() => {
+                      setGameWon(false);
+                      startGame();
+                    }}
+                    className="rounded-full font-bold"
+                    aria-label="Play again"
+                  >
+                    Play again
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={goBackToMode}
+                    className="rounded-full"
+                    aria-label="Change mode"
+                  >
+                    Change mode
+                  </Button>
+                  <a
+                    href="https://wyldstone.ca"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex"
+                    aria-label="Visit wyldstone.ca"
+                  >
+                    <Button className="rounded-full w-full sm:w-auto">
+                      Support wyldstone.ca
+                    </Button>
+                  </a>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {gameOver && !gameWon && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

@@ -78,6 +78,51 @@
   .mask-radial {
     mask-image: radial-gradient(circle, black 40%, transparent 100%);
   }
+  /* Brace game: glowing beads */
+  .bead-glow {
+    box-shadow:
+      0 0 12px 3px hsl(var(--accent) / 0.7),
+      0 0 24px 6px hsl(var(--accent) / 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    animation: bead-pulse 1.4s ease-in-out infinite;
+  }
+  .bead-segment {
+    box-shadow:
+      0 0 8px 2px hsl(var(--accent) / 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .bead-head {
+    box-shadow:
+      0 0 14px 4px hsl(var(--accent) / 0.35),
+      0 0 24px 6px hsl(var(--accent) / 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .brace-game-grid-bg {
+    background: linear-gradient(145deg, hsl(var(--background)) 0%, hsl(var(--muted) / 0.4) 50%, hsl(var(--background)) 100%);
+  }
+  .brace-game-grid-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(ellipse 75% 75% at 50% 50%, hsl(var(--accent) / 0.08), transparent 65%);
+    pointer-events: none;
+  }
+}
+
+@keyframes bead-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 12px 3px hsl(var(--accent) / 0.7),
+      0 0 24px 6px hsl(var(--accent) / 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 18px 5px hsl(var(--accent) / 0.85),
+      0 0 32px 8px hsl(var(--accent) / 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
 }
 
 ::selection {
