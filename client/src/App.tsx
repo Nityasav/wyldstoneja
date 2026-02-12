@@ -13,7 +13,6 @@ import Team from "@/pages/team";
 import ProductPage from "@/pages/product";
 import BraceGame from "@/pages/brace-game";
 import Onboarding from "@/pages/onboarding";
-import Chatbot from "@/components/Chatbot";
 
 const ONBOARDING_STORAGE_KEY = "wyldstone_onboarding_complete";
 
@@ -55,10 +54,7 @@ function App() {
         {showOnboarding ? (
           <Onboarding onComplete={handleOnboardingComplete} />
         ) : (
-          <>
-            <Router />
-            <Chatbot />
-          </>
+          <Router />
         )}
       </TooltipProvider>
     </QueryClientProvider>

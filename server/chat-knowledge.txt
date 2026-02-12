@@ -1,5 +1,0 @@
-# Wyldstone facts — add one fact per line. The chatbot uses these when answering.
-# Lines starting with # are ignored. Edit and save; changes apply on the next message (no restart needed).
-
-Each bracelet costs $10.
-
