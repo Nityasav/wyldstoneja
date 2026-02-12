@@ -30,9 +30,18 @@ const Hero = () => {
             WYLDSTONE<br/><span className="italic font-light opacity-80">Bracelets.</span>
           </h1>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="flex flex-col items-center">
-            <p className="max-w-xl text-white/70 text-lg mb-12 font-light tracking-wide leading-relaxed">
+            <p className="max-w-xl text-white/70 text-lg mb-6 font-light tracking-wide leading-relaxed">
               Beaded bracelets with silver charms. <br/>$10 that changes the world.
             </p>
+            <Link href="/bracegame">
+              <Button
+                size="lg"
+                className="rounded-full bg-white text-primary hover:bg-accent hover:text-primary font-bold text-sm uppercase tracking-wider mt-2"
+                aria-label="Play the bracelet game"
+              >
+                Play the bracelet game
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

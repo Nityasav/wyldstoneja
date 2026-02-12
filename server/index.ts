@@ -1,4 +1,9 @@
+import "dotenv/config";
+import { config } from "dotenv";
 import express, { type Request, Response, NextFunction } from "express";
+
+// Load .env.local so OPENAI_API_KEY is available when you add it
+config({ path: ".env.local", override: true });
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
