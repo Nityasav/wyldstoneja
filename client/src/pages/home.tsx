@@ -100,49 +100,47 @@ const ProductSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((p, i) => (
-            <motion.article
+            <Link
               key={p.id}
-              className="group relative aspect-[4/5] rounded-2xl overflow-hidden border border-border shadow-sm"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              whileHover={{ y: -4 }}
+              href={`/${p.slug}`}
+              className="block group"
+              aria-label={`Learn more about ${p.name}`}
             >
-              {/* Image: full bleed, consistent crop */}
-              <img
+              <motion.article
+                className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-border shadow-sm"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                whileHover={{ y: -4 }}
+              >
+                {/* Image: full bleed, consistent crop */}
+<img
                 src={p.image}
                 alt={p.name}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              {/* Gradient overlay for text readability */}
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
-                aria-hidden
-              />
-              {/* Content overlay: bottom */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                <div className="relative z-10">
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-white mb-3 group-hover:text-accent transition-colors duration-300 leading-tight tracking-tight w-full">
-                    {p.name}
-                  </h3>
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-xl font-light text-white">${p.price}</span>
-                    <span className="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                      <Link href={`/${p.slug}`}>
-                        <Button
-                          size="sm"
-                          className="rounded-full bg-white text-primary hover:bg-accent hover:text-primary font-bold text-xs uppercase tracking-wider px-5 py-2 min-w-fit"
-                          aria-label={`Learn more about ${p.name}`}
-                        >
-                          Learn More
-                        </Button>
-                      </Link>
-                    </span>
+                {/* Gradient overlay for text readability */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+                  aria-hidden
+                />
+                {/* Content overlay: bottom - whole area is clickable via parent Link */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+                  <div className="relative z-10">
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-white mb-3 group-hover:text-accent transition-colors duration-300 leading-tight tracking-tight w-full">
+                      {p.name}
+                    </h3>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-xl font-light text-white">${p.price}</span>
+                      <span className="inline-flex rounded-full bg-white text-primary group-hover:bg-accent group-hover:text-primary font-bold text-xs uppercase tracking-wider px-5 py-2 min-w-fit transition-colors duration-300 md:translate-y-2 md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0">
+                        Learn More
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.article>
+              </motion.article>
+            </Link>
           ))}
         </div>
       </div>
