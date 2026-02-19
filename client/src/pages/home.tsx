@@ -10,7 +10,41 @@ import { Link } from "wouter";
 
 // UI Components
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { products } from "@/data/products";
+
+const FAQ_ITEMS = [
+  {
+    question: "How much do the bracelets cost?",
+    answer:
+      "Each Wyldstone bracelet is $10. That includes the bracelet and a portion that goes directly to wildlife conservation—no hidden fees.",
+  },
+  {
+    question: "Where does the donation go?",
+    answer:
+      "10% of every sale is donated to protect wildlife and support adopting vulnerable zoo animals. We partner with conservation efforts so your purchase has a direct impact.",
+  },
+  {
+    question: "What are the bracelets made of?",
+    answer:
+      "Our bracelets feature hand-strung gem-style beads (in colours like white marble, light blue, green, and dark blue) and a silver-toned endangered animal charm—such as a sea turtle, panda, polar bear, or rhino. They’re adjustable and made to last.",
+  },
+  {
+    question: "How do I care for my bracelet?",
+    answer:
+      "Keep your bracelet dry when possible and avoid harsh chemicals or rough surfaces. Store it in a soft pouch or box when you’re not wearing it to protect the beads and charm.",
+  },
+  {
+    question: "How can I get one?",
+    answer:
+      "You can order through our links (e.g. Linktree or site) and connect with us on Instagram @wyldstone_ja. We’re a small team crafting each piece with care.",
+  },
+];
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -143,6 +177,40 @@ const ImpactStatement = () => {
   );
 };
 
+const FAQSection = () => {
+  return (
+    <section id="faq" className="py-24 md:py-32 bg-background border-t">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-2xl mx-auto"
+        >
+          <span className="text-accent text-[10px] font-black uppercase tracking-[0.5em] mb-4 block">
+            FAQ
+          </span>
+          <h2 className="text-4xl md:text-5xl font-serif font-black tracking-tight mb-12">
+            Common questions
+          </h2>
+          <Accordion type="single" collapsible className="w-full">
+            {FAQ_ITEMS.map((item, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border-border">
+                <AccordionTrigger className="text-left font-medium text-foreground py-5 hover:no-underline hover:text-accent">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -154,7 +222,8 @@ export default function Home() {
       <Hero />
       <ProductSection />
       <ImpactStatement />
-      
+      <FAQSection />
+
       <footer className="py-20 bg-background border-t">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-2xl font-serif font-black tracking-tighter">WYLDSTONE</div>

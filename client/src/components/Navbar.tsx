@@ -5,6 +5,7 @@ import { Menu, X, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
+  { label: "Contact", path: "/contact" },
   { label: "Problem", path: "/problem" },
   { label: "Solution", path: "/solution" },
   { label: "Impact", path: "/impact" },

@@ -13,6 +13,7 @@ import Team from "@/pages/team";
 import ProductPage from "@/pages/product";
 import BraceGame from "@/pages/brace-game";
 import Onboarding from "@/pages/onboarding";
+import Contact from "@/pages/contact";
 
 const ONBOARDING_STORAGE_KEY = "wyldstone_onboarding_complete";
 
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/solution" component={Solution} />
       <Route path="/impact" component={Impact} />
       <Route path="/team" component={Team} />
+      <Route path="/contact" component={Contact} />
       <Route path="/bracegame" component={BraceGame} />
       <Route path="/:productSlug" component={ProductPage} />
       <Route component={NotFound} />
